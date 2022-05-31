@@ -14,11 +14,11 @@ namespace PI___CERO_v1._0
         private void MainFrm_Load(object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'fsuman20_DBDataSetMain.Oprema' table. You can move, or remove it, as needed.
-            this.opremaTableAdapter.Fill(this.fsuman20_DBDataSetMain.Oprema);
-          //  DataShowEquipment();
+            //this.opremaTableAdapter.Fill(this.fsuman20_DBDataSetMain.Oprema);
+            DataShowEquipment();
         }
 
-     /*   private void DataShowEquipment()
+        private void DataShowEquipment()
         {
             var equipment = EquipmentRepository.GetEquimpent();
             DataGridEquipment.DataSource = equipment;
@@ -29,7 +29,7 @@ namespace PI___CERO_v1._0
             DataGridEquipment.Columns["Projekt"].DisplayIndex = 4;
             DataGridEquipment.Columns["Zaposlenik"].DisplayIndex = 5;
         }
-       */
+       
 
         private void btnDelete_Click(object sender, EventArgs e)
         {

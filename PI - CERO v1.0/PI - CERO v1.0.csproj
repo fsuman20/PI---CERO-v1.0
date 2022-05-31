@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DBLayer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\DBLayer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,22 +50,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EditFrm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="EditFrm.Designer.cs">
-      <DependentUpon>EditFrm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="fsuman20_DBDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>fsuman20_DBDataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="fsuman20_DBDataSetMain.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>fsuman20_DBDataSetMain.xsd</DependentUpon>
-    </Compile>
     <Compile Include="LoginFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -79,11 +67,9 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\EditRepository.cs" />
     <Compile Include="Repositories\EmployeeRepository.cs" />
     <Compile Include="Repositories\EquipmentRepository.cs" />
-    <EmbeddedResource Include="EditFrm.resx">
-      <DependentUpon>EditFrm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="LoginFrm.resx">
       <DependentUpon>LoginFrm.cs</DependentUpon>
     </EmbeddedResource>
@@ -99,28 +85,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="fsuman20_DBDataSet.xsc">
-      <DependentUpon>fsuman20_DBDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="fsuman20_DBDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>fsuman20_DBDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="fsuman20_DBDataSet.xss">
-      <DependentUpon>fsuman20_DBDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="fsuman20_DBDataSetMain.xsc">
-      <DependentUpon>fsuman20_DBDataSetMain.xsd</DependentUpon>
-    </None>
-    <None Include="fsuman20_DBDataSetMain.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>fsuman20_DBDataSetMain.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="fsuman20_DBDataSetMain.xss">
-      <DependentUpon>fsuman20_DBDataSetMain.xsd</DependentUpon>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -134,14 +98,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="DLL\DBLayer.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DBLayer\DBLayer.csproj">
-      <Project>{d5175e73-5b13-4b64-8419-f9979a95c88a}</Project>
-      <Name>DBLayer</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -16,6 +16,7 @@ namespace PI___CERO_v1._0.Repositories
             Equipment equipment = null;
 
             string sql = $"SELECT * FROM Oprema WHERE ID = {id}";
+            DB.SetConfiguration("fsuman20_DB", "fsuman20", "y;9]1S%b");
             DB.OpenConnection();
             var reader = DB.GetDataReader(sql);
             if (reader.HasRows)
@@ -32,6 +33,7 @@ namespace PI___CERO_v1._0.Repositories
             var equipment = new List<Equipment>();
 
             string sql = "SELECT * FROM Oprema";
+            DB.SetConfiguration("fsuman20_DB", "fsuman20", "y;9]1S%b");
             DB.OpenConnection();
             var reader = DB.GetDataReader(sql);
             while (reader.Read())

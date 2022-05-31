@@ -19,6 +19,7 @@ namespace PI___CERO_v1._0.Repositories
 
         private static Employee FetchEmployee(string sql)
         {
+            DB.SetConfiguration("fsuman20_DB", "fsuman20", "y;9]1S%b");
             DB.OpenConnection();
             var reader = DB.GetDataReader(sql);
             Employee employee = null;
