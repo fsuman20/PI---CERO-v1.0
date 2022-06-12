@@ -3,75 +3,71 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DBLayer;
 using PI___CERO_v1._0.Models;
+using DBLayer;
 using System.Data.SqlClient;
 
 namespace PI___CERO_v1._0.Repositories
 {
-    public class EmployeeRepository
+    internal class FinanceSourceRepository
     {
-        public static Employee GetEmployee(int id)
+        public static FinanceSource GetFinance(int id)
         {
-            string sql = $"SELECT * FROM CIP_Employee WHERE Id = {id}";
-            return FetchEmployee(sql);
+            string sql = $"SELECT * FROM Finance WHERE Id = {id}";
+            return FetchFinance(sql);
         }
 
 
-        private static Employee FetchEmployee(string sql)
+        private static FinanceSource FetchFinance(string sql)
         {
-            Employee employee = null;
+            FinanceSource finance = null;
             DB.OpenConnection();
             var reader = DB.GetDataReader(sql);
             if (reader.HasRows == true)
             {
                 reader.Read();
-                employee = CreateObject(reader);
+                finance = CreateObject(reader);
                 reader.Close();
             }
             DB.CloseConnection();
-            return employee;
+            return finance;
         }
 
-
-        public static List<Employee> GetCipEmployees()
+        public static List<FinanceSource> GetFinanceList()
         {
-            List<Employee> employeex = new List<Employee>();
+            List<FinanceSource> financex = new List<FinanceSource>();
 
 
 
-            string sql = "SELECT * FROM CIP_Employee";
+            string sql = "SELECT * FROM Finance";
 
             DB.SetConfiguration("fsuman20_DB", "fsuman20", "y;9]1S%b");
-
             DB.OpenConnection();
             var reader = DB.GetDataReader(sql);
             while (reader.Read())
             {
-                Employee employee = CreateObject(reader);
-                employeex.Add(employee);
+                FinanceSource finance = CreateObject(reader);
+                financex.Add(finance);
             }
-
             reader.Close();
             DB.CloseConnection();
 
-            return employeex;
+            return financex;
         }
 
-        public static int GetEmployeeId(string name)
+        public static int GetSourceId(string financename)
         {
             int id = 0;
-            var wrd = name.Split(' ');
-            string sql = $"SELECT Id FROM Employee WHERE  FirstName=N'{wrd[0]}' AND Surname=N'{wrd[1]}';";
+            string sql = $"SELECT Id FROM Finance WHERE Id = {financename}";
+
             DB.OpenConnection();
             var reader = DB.GetDataReader(sql);
-            if (reader.HasRows)
+            if (reader.HasRows == true)
             {
                 reader.Read();
                 id = int.Parse(reader["Id"].ToString());
                 reader.Close();
             }
-
             DB.CloseConnection();
             return id;
         }
@@ -79,14 +75,13 @@ namespace PI___CERO_v1._0.Repositories
         public static int GetCurrentId(string Id)
         {
             int id = 0;
-
-            string sql = $"SELECT Employee FROM Equipment WHERE  Id='{Id}'";
+            string sql = $"SELECT Project_finance FROM Equipment WHERE  Id='{Id}'";
             DB.OpenConnection();
             var reader = DB.GetDataReader(sql);
             if (reader.HasRows)
             {
                 reader.Read();
-                id = int.Parse(reader["Employee"].ToString());
+                id = int.Parse(reader["Project_finance"].ToString());
                 reader.Close();
             }
 
@@ -94,15 +89,19 @@ namespace PI___CERO_v1._0.Repositories
             return id;
         }
 
-private static Employee CreateObject(SqlDataReader reader)
+        private static FinanceSource CreateObject(SqlDataReader reader)
         {
             int id = int.Parse(reader["Id"].ToString());
-            string name = reader["FirstName"].ToString();
-            string surname = reader["Surname"].ToString();
-            string username = reader["Username"].ToString();
-            string password = reader["Password"].ToString();
-            var employee = new Employee { OIB = id, FirstName = name, Surname = surname, Username = username, Password = password };
-            return employee;
+            string name = reader["FinanceName"].ToString();
+            var finance = new FinanceSource
+            {
+                Id = id,
+                FinanceName = name,
+            };
+            return finance;
         }
+
     }
 }
+
+

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PI___CERO_v1._0.Models;
 using System.Data.SqlClient;
+using PI___CERO_v1._0.fsuman20_DBDataSetTableAdapters;
 using DBLayer;
 
 namespace PI___CERO_v1._0.Repositories
@@ -15,8 +16,7 @@ namespace PI___CERO_v1._0.Repositories
         {
             Equipment equipment = null;
 
-            string sql = $"SELECT * FROM Oprema WHERE ID = {id}";
-            DB.SetConfiguration("fsuman20_DB", "fsuman20", "y;9]1S%b");
+            string sql = $"SELECT * FROM Equipment WHERE Id = {id}"; ;
             DB.OpenConnection();
             var reader = DB.GetDataReader(sql);
             if (reader.HasRows)
@@ -30,35 +30,66 @@ namespace PI___CERO_v1._0.Repositories
         }
         public static List<Equipment> GetEquimpent()
         {
-            var equipment = new List<Equipment>();
-
-            string sql = "SELECT * FROM Oprema";
-            DB.SetConfiguration("fsuman20_DB", "fsuman20", "y;9]1S%b");
+            List<Equipment> equipmentx = new List<Equipment>();
+            
+            string sql = "SELECT * FROM Equipment";
+            DB.SetConfiguration("ahamzic20_DB", "ahamzic20", "pNzDysZy");
             DB.OpenConnection();
             var reader = DB.GetDataReader(sql);
             while (reader.Read())
             {
-                Equipment equipmentx = CreateObject(reader);
-                equipment.Add(equipmentx);
+                Equipment equipment = CreateObject(reader);
+                equipmentx.Add(equipment);
             }
             reader.Close();
             DB.CloseConnection();
-            return equipment;
+            return equipmentx;
         }
         private static Equipment CreateObject(SqlDataReader reader)
         {
-            int id = int.Parse(reader["ID"].ToString());
-            string name = reader["Naziv"].ToString();
-            string description = reader["Opis"].ToString();
-            DateTime arrival = DateTime.Parse(reader["Dospijece"].ToString());
-            string finance = reader["Financiranje"].ToString();
-            string project = reader["Projekt"].ToString();
-            string reason = reader["Razlog"].ToString();
-            DateTime expected = DateTime.Parse(reader["Povratak"].ToString());
-            User user = (User)reader["Korisnik"].ToString();
-            Employee employee = (Employee)reader["Zaposlenik"].ToString();
-            var equipment = new Equipment { Id = id, EquipmentName = name, Description = description, Arrival = arrival, Finance = finance, Project = project, Reason = reason, Expected = expected, User = user, CIPEmployee = employee };
+            int id = int.Parse(reader["Id"].ToString());
+            string name = reader["EquipmentName"].ToString();
+            string description = reader["Description"].ToString();
+         //   DateTime arrival = DateTime.Parse(reader["Arrival"].ToString());
+            int finance = int.Parse(reader["idSource"].ToString());
+            string project = reader["ProjectName"].ToString();
+          //  string reason = reader["Reason"].ToString();
+            //DateTime expected = DateTime.Parse(reader["DateTime"].ToString());
+            int appuser = int.Parse(reader["IdEmployee"].ToString());
+            int employee = int.Parse(reader["IdSupplier"].ToString());
+            var equipment = new Equipment { Id = id, EquipmentName = name, Description = description,
+                //Arrival = arrival, 
+                Project_finance = finance, Project = project, 
+                //Reason = reason, 
+              //  Expected = expected, 
+                App_User = appuser, Employee = employee };
             return equipment;
+        }
+
+
+
+
+        public static void InsertEquipment(string name, int description, int finance, string project, int employee, int appuser)
+        {
+            string sql = $"INSERT INTO Equipment (EquipmentName, Description, Project, Project_finance, Employee, App_User, Arrival) VALUES ('{name}','{description}','{project}',{finance},{employee},{appuser}, GETDATE())";
+            DB.OpenConnection();
+            DB.ExecuteCommand(sql);
+            DB.CloseConnection();
+        }
+
+        public static void UpdateEquipment(string id, string name, int description, int finance, string project, int employee, int appuser)
+        {
+            string sql = $"UPDATE Equipment SET Arrival = GETDATE(), EquipmentName='{name}', Description='{description}', Project='{project}', Project_finance={finance}, Employee={employee}, App_User={appuser}, WHERE Id={id}";
+            DB.OpenConnection();
+            DB.ExecuteCommand(sql);
+            DB.CloseConnection();
+        }
+        public static void DeleteEquipment(string id)
+        {
+            string sql = $"DELETE FROM Equipment WHERE Id={id}";
+            DB.OpenConnection();
+            DB.ExecuteCommand(sql);
+            DB.CloseConnection();
         }
     }
 }

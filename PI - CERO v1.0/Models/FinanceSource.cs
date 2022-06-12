@@ -6,16 +6,14 @@ using System.Threading.Tasks;
 
 namespace PI___CERO_v1._0.Models
 {
-    public abstract class User
+    public class FinanceSource
     {
-        public int OIB { get; set; }
-        public string FirstName { get; set; }
-        public string Surname { get; set; }
+        public int Id { get; set; }
+        public string FinanceName { get; set; }
 
         public override string ToString()
         {
-            return FirstName + " " + Surname;
+            return FinanceName;
         }
-
     }
 }

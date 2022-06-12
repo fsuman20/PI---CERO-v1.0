@@ -11,14 +11,13 @@ namespace PI___CERO_v1._0.Models
         public int Id { get; set; }
         public string EquipmentName { get; set; }
         public string Description { get; set; }
-        public string Finance { get; set; }
+        public int Project_finance { get; set; }
         public DateTime Arrival { get; set; }
         public string Project { get; set; }
         public string Reason { get; set; }
         public DateTime Expected { get; set; }
-        public User User { get; set; }
-        public Employee CIPEmployee { get; set; }
-        public bool Availability { get; set; }
+        public int App_User { get; set; }
+        public int Employee { get; set; }
 
         public override string ToString()
         {
